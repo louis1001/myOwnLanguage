@@ -28,7 +28,7 @@ class Parser {
   statementTerminator () {
     // const blockTerminator: TokenType[] = [tt.NULL, tt.RCUR, tt.RPAR]
     // if (this.currentToken.type === tt.SEMI) {
-    // this.eat(tt.SEMI)
+    this.eat(tt.SEMI)
     // }
     // else if (blockTerminator.indexOf(this.currentType) === -1) {
     //   do {
