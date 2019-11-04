@@ -1,5 +1,12 @@
 <template>
   <div>
+    Examples:
+    <select name="example-sel" id="exm-select" @change="selectedExample">
+      <option
+        v-for="(name, object) in exampleNames"
+        v-bind:key="object"
+        :value=object>{{ object }}</option>
+    </select>
     <section id="code-section">
     <!-- <textarea id="code-input" placeholder="a+b = c" v-model="code"></textarea> -->
     <codemirror id="code-input" v-model="code" :options="cmOptions" />
@@ -18,6 +25,8 @@ import { codemirror } from 'vue-codemirror'
 import '../app/language/myLanguage.js'
 // theme css
 import 'codemirror/theme/cobalt.css'
+// @ts-ignore
+import examples from '../assets/examples.json'
 
 @Component({
   components: {
@@ -35,13 +44,18 @@ export default class CodeEditor extends Vue {
         theme: 'cobalt',
         line: true,
         lineNumbers: true
-        // more codemirror options, 更多 codemirror 的高级配置...
-      }
+      },
+      exampleNames: examples
     }
   }
 
   runCode () {
     this.$emit('running', this.$data.code)
+  }
+
+  selectedExample (target: Event) {
+    // @ts-ignore
+    this.code = examples[target.srcElement.value]
   }
 }
 </script>

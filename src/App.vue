@@ -13,7 +13,6 @@ import { Component, Vue } from 'vue-property-decorator'
 // @ts-ignore
 import VueCodemirror from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
-import HelloWorld from './components/HelloWorld.vue'
 import CodeEditor from './components/CodeEditor.vue'
 import { evalCode, setupConsole } from '@/app/language/main'
 
@@ -21,7 +20,6 @@ Vue.use(VueCodemirror)
 
 @Component({
   components: {
-    HelloWorld,
     CodeEditor
   }
 })
@@ -34,11 +32,18 @@ export default class App extends Vue {
   }
 
   execute (param: string) {
-    // const prevTime = performance.now()
     console.log('\n\n**************\n\n')
-    const result = evalCode(param)
+    const prevTime = performance.now()
+    this.evalC(param).then(() => {
+      const interval = performance.now() - prevTime
 
-    // console.log('\nThe process took: ', performance.now() - prevTime, ' ms\n')
+      console.log('\nTime: ', interval, ' ms\n')
+    })
+  }
+
+  async evalC (code: string) {
+    const result = await evalCode(code)
+    return result
   }
 
   print (...values: any) {

@@ -497,9 +497,9 @@ export default class Interpreter {
           }
           break
         case 'println':
-          let mappedNodesP = args.map(x => this.visit(x).toString())
+          let mappedNodesP = args.map(x => this.visit(x).toString()).join(' ')
 
-          console.log(...mappedNodesP, '\n')
+          console.log(mappedNodesP, '\n')
           return this.null
         case 'print':
           let mappedNodes = args.map(x => this.visit(x).toString())

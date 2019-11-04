@@ -43,7 +43,7 @@ function runCode () {
   resultDiv && (resultDiv.innerHTML = result)
 }
 
-function evalCode (code: string): string {
+async function evalCode (code: string): Promise<string> {
   const evaluated = int.interpret(code)
 
   return evaluated
